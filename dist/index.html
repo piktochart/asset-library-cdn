@@ -1,0 +1,1877 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piktochart Asset Library - Integration Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --demo-primary: #0fb4bb;
+        --demo-primary-hover: #0b959a;
+        --demo-bg: #f8fafc;
+        --demo-surface: #ffffff;
+        --demo-surface-hover: #f1f5f9;
+        --demo-border: #e2e8f0;
+        --demo-text: #0f172a;
+        --demo-text-muted: #64748b;
+        --demo-success: #10b981;
+        --demo-code-bg: #f1f5f9;
+        --demo-code-text: #1f2937;
+        --demo-code-keyword: #be185d;
+        --demo-code-string: #0369a1;
+        --demo-code-property: #0891b2;
+        --demo-code-comment: #6b7280;
+        --demo-code-function: #7c3aed;
+        --demo-code-tag: #059669;
+        --demo-code-attr: #0891b2;
+      }
+
+      :root.dark {
+        --demo-bg: #0f172a;
+        --demo-surface: #1e293b;
+        --demo-surface-hover: #334155;
+        --demo-border: #334155;
+        --demo-text: #f8fafc;
+        --demo-text-muted: #94a3b8;
+        --demo-code-bg: #0d1117;
+        --demo-code-text: #e6edf3;
+        --demo-code-keyword: #ff7b72;
+        --demo-code-string: #a5d6ff;
+        --demo-code-property: #79c0ff;
+        --demo-code-comment: #8b949e;
+        --demo-code-function: #d2a8ff;
+        --demo-code-tag: #7ee787;
+        --demo-code-attr: #79c0ff;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--demo-bg);
+        color: var(--demo-text);
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(135deg, var(--demo-surface) 0%, var(--demo-bg) 100%);
+        border-bottom: 1px solid var(--demo-border);
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .header-left h1 {
+        margin: 0 0 0.25rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #0a7d81 0%, #5aebf0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header-left p {
+        margin: 0;
+        color: var(--demo-text-muted);
+        font-size: 0.9rem;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      /* Main Layout */
+      .main {
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        height: calc(100vh - 80px);
+      }
+
+      @media (max-width: 1024px) {
+        .main {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+      }
+
+      /* Configuration Panel */
+      .config-panel {
+        background: var(--demo-surface);
+        border-right: 1px solid var(--demo-border);
+        padding: 1.25rem;
+        overflow-y: auto;
+      }
+
+      .config-section {
+        margin-bottom: 1.25rem;
+      }
+
+      .config-section h3 {
+        margin: 0 0 0.75rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--demo-text-muted);
+      }
+
+      .config-group {
+        margin-bottom: 0.875rem;
+      }
+
+      .config-group label {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        margin-bottom: 0.375rem;
+        color: var(--demo-text);
+      }
+
+      .config-group input[type='text'],
+      .config-group select {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        background: var(--demo-bg);
+        border: 1px solid var(--demo-border);
+        border-radius: 6px;
+        color: var(--demo-text);
+        font-size: 0.8125rem;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+
+      .config-group input:focus,
+      .config-group select:focus {
+        outline: none;
+        border-color: var(--demo-primary);
+      }
+
+      /* Color Input */
+      .color-input-wrapper {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .color-input-wrapper input[type='color'] {
+        width: 40px;
+        height: 34px;
+        padding: 2px;
+        border: 1px solid var(--demo-border);
+        border-radius: 6px;
+        background: var(--demo-bg);
+        cursor: pointer;
+      }
+
+      .color-input-wrapper input[type='color']::-webkit-color-swatch-wrapper {
+        padding: 2px;
+      }
+
+      .color-input-wrapper input[type='color']::-webkit-color-swatch {
+        border-radius: 3px;
+        border: none;
+      }
+
+      .color-input-wrapper input[type='text'] {
+        flex: 1;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+        font-size: 0.75rem;
+      }
+
+      /* Checkbox */
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.375rem 0;
+      }
+
+      .checkbox-group input[type='checkbox'] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--demo-primary);
+        cursor: pointer;
+      }
+
+      .checkbox-group label {
+        margin: 0;
+        cursor: pointer;
+        font-size: 0.8125rem;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: var(--demo-primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--demo-primary-hover);
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: var(--demo-surface-hover);
+        color: var(--demo-text);
+        border: 1px solid var(--demo-border);
+      }
+
+      .btn-secondary:hover {
+        background: var(--demo-border);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-full {
+        width: 100%;
+      }
+
+      .btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Preview Area */
+      .preview-area {
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem;
+        gap: 1rem;
+        overflow-y: auto;
+        background: var(--demo-bg);
+      }
+
+      .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .preview-header h2 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      /* Live Preview Container */
+      .preview-container {
+        min-height: 450px;
+        background: var(--demo-surface);
+        border-radius: 10px;
+        border: 1px solid var(--demo-border);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .preview-container piktochart-asset-library {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 450px;
+      }
+
+      /* Code Preview */
+      .code-section {
+        background: var(--demo-code-bg);
+        border-radius: 10px;
+        border: 1px solid var(--demo-border);
+        overflow: hidden;
+      }
+
+      .code-section:has(.drop-zone) {
+        overflow: visible;
+      }
+
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.625rem 1rem;
+        background: var(--demo-surface);
+        border-bottom: 1px solid var(--demo-border);
+      }
+
+      .code-header span {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--demo-text-muted);
+      }
+
+      .code-tabs {
+        display: flex;
+        gap: 0.25rem;
+      }
+
+      .code-tab {
+        padding: 0.3rem 0.625rem;
+        background: transparent;
+        border: none;
+        border-radius: 4px;
+        color: var(--demo-text-muted);
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .code-tab.active {
+        background: var(--demo-primary);
+        color: white;
+      }
+
+      .code-tab:hover:not(.active) {
+        background: var(--demo-surface-hover);
+        color: var(--demo-text);
+      }
+
+      .code-content {
+        padding: 0.875rem;
+        overflow-x: auto;
+        max-height: 200px;
+      }
+
+      .code-content pre {
+        margin: 0;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        color: var(--demo-code-text);
+      }
+
+      .code-content .keyword {
+        color: var(--demo-code-keyword);
+      }
+      .code-content .string {
+        color: var(--demo-code-string);
+      }
+      .code-content .property {
+        color: var(--demo-code-property);
+      }
+      .code-content .comment {
+        color: var(--demo-code-comment);
+      }
+      .code-content .function {
+        color: var(--demo-code-function);
+      }
+      .code-content .tag {
+        color: var(--demo-code-tag);
+      }
+      .code-content .attr {
+        color: var(--demo-code-attr);
+      }
+
+      .copy-btn {
+        padding: 0.3rem 0.625rem;
+        background: var(--demo-surface-hover);
+        border: none;
+        border-radius: 4px;
+        color: var(--demo-text-muted);
+        font-size: 0.7rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .copy-btn:hover {
+        background: var(--demo-border);
+        color: var(--demo-text);
+      }
+
+      .copy-btn.copied {
+        background: var(--demo-success);
+        color: white;
+      }
+
+      /* Event Log */
+      .event-log {
+        background: var(--demo-code-bg);
+        border-radius: 10px;
+        border: 1px solid var(--demo-border);
+        max-height: 150px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .event-log-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.625rem 1rem;
+        background: var(--demo-surface);
+        border-bottom: 1px solid var(--demo-border);
+      }
+
+      .event-log-header span {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--demo-text-muted);
+      }
+
+      .event-log-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.625rem 1rem;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+        font-size: 0.7rem;
+      }
+
+      .event-item {
+        padding: 0.2rem 0;
+        color: var(--demo-text-muted);
+      }
+
+      .event-item .time {
+        color: #8b949e;
+      }
+
+      .event-item .type {
+        color: var(--demo-success);
+        font-weight: 600;
+      }
+
+      .event-item .data {
+        color: #a5d6ff;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 0.875rem 1.25rem;
+        background: var(--demo-success);
+        color: white;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 10000;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Collapsible section */
+      .collapsible-section summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .collapsible-section summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .collapsible-section summary::before {
+        content: '▶';
+        font-size: 0.6rem;
+        color: var(--demo-text-muted);
+        transition: transform 0.2s;
+      }
+
+      .collapsible-section[open] summary::before {
+        transform: rotate(90deg);
+      }
+
+      .collapsible-section summary h3 {
+        margin: 0;
+        display: inline;
+      }
+
+      .collapsible-section > .config-group {
+        margin-top: 0.75rem;
+      }
+
+      /* Textarea */
+      .config-group textarea {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        background: var(--demo-bg);
+        border: 1px solid var(--demo-border);
+        border-radius: 6px;
+        color: var(--demo-text);
+        font-size: 0.75rem;
+        font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+        resize: vertical;
+        transition: border-color 0.2s;
+      }
+
+      .config-group textarea:focus {
+        outline: none;
+        border-color: var(--demo-primary);
+      }
+
+      /* Sidebar config (shown conditionally) */
+      .sidebar-config {
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      .sidebar-config .config-group {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-config .config-group:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Drop Zone */
+      .drop-zone {
+        height: 300px !important;
+        max-height: 300px !important;
+        background: var(--demo-surface);
+        border-radius: 10px;
+        border: 2px dashed var(--demo-border);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+      }
+
+      .drop-zone.drag-over {
+        border-color: var(--demo-primary);
+        background: rgba(15, 180, 187, 0.1);
+        border-style: solid;
+      }
+
+      .drop-zone-content {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        overflow: hidden;
+        max-height: 100%;
+      }
+
+      .dropped-asset {
+        max-width: 100%;
+        max-height: 150px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .dropped-asset-info {
+        text-align: center;
+        color: var(--demo-text-muted);
+        font-size: 0.7rem;
+        max-width: 100%;
+        overflow: hidden;
+        max-height: 2.5em;
+        line-height: 1.3;
+        flex-shrink: 0;
+      }
+
+      .clear-drop-btn {
+        padding: 0.5rem 0.875rem;
+        background: var(--demo-surface-hover);
+        border-radius: 6px;
+        color: var(--demo-text);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Dynamic Asset Library Loading:
+      - Dev mode (Vite): loads /src/main.ts as ES module with HMR
+      - Production (static): loads ./asset-library.umd.js bundle
+    -->
+    <script src="./asset-library.umd.js"></script>
+
+    <header class="header">
+      <div class="header-left">
+        <h1>Piktochart Asset Library</h1>
+        <p>Interactive Integration Playground</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="modalTestUploadBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          Programmatic Upload
+        </button>
+        <button class="btn btn-secondary" id="openModalBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 3v18M3 9h6M3 15h6" />
+          </svg>
+          Open Modal
+        </button>
+        <button class="btn btn-secondary" id="openSidebarBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M15 3v18" />
+          </svg>
+          Open Sidebar
+        </button>
+        <button class="btn btn-secondary" id="toggleThemeBtn" title="Toggle dark mode">
+          <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+          <svg
+            id="moonIcon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            style="display: none"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Configuration Panel -->
+      <aside class="config-panel">
+        <details id="section-api" class="config-section collapsible-section">
+          <summary><h3>API Configuration</h3></summary>
+          <div class="config-group">
+            <label for="apiBaseUrl">API Base URL</label>
+            <input
+              type="text"
+              id="apiBaseUrl"
+              value="http://localhost:8080/"
+              placeholder="https://create.piktochart.com/"
+            />
+          </div>
+          <div class="config-group">
+            <label for="apiAccountId">Account ID</label>
+            <input type="text" id="apiAccountId" value="" placeholder="12345" />
+          </div>
+          <div class="config-group">
+            <label for="apiToken">API Token (JSON)</label>
+            <textarea
+              id="apiToken"
+              rows="7"
+              placeholder='{
+                "access_token": "eyJhbGciOi...",
+                "token_type": "Bearer",
+                "expires_in": 7200,
+                "refresh_token": "dGhpcyBpcyB...",
+                "created_at": 1735689600,
+                "client_id": "thrivecart"
+              }'
+            >
+            </textarea>
+            <small id="apiTokenError" style="color: #ef4444; font-size: 0.75rem; display: none"></small>
+          </div>
+          <div class="config-group">
+            <label for="thriveToken">Thrive AI Token (Access Token)</label>
+            <textarea
+              id="thriveToken"
+              rows="4"
+              placeholder="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+            ></textarea>
+          </div>
+        </details>
+
+        <details id="section-prefilter" class="config-section collapsible-section">
+          <summary><h3>Pre-filter Settings</h3></summary>
+          <div class="config-group">
+            <label>Types</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-design" />
+              <label for="prefilter-type-design">Design</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-image" />
+              <label for="prefilter-type-image">Image</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-video" />
+              <label for="prefilter-type-video">Video</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-icon" />
+              <label for="prefilter-type-icon">Icon & Graphics</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-document" />
+              <label for="prefilter-type-document">Document</label>
+            </div>
+          </div>
+          <div class="config-group">
+            <label>Allow Use Types <small>(none = all allowed)</small></label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="allowUseDesign" />
+              <label for="allowUseDesign">Design</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="allowUseImage" />
+              <label for="allowUseImage">Image</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="allowUseVideo" />
+              <label for="allowUseVideo">Video</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="allowUseIcon" />
+              <label for="allowUseIcon">Icon & Graphic</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="allowUseDocument" />
+              <label for="allowUseDocument">Document</label>
+            </div>
+          </div>
+          <div class="config-group">
+            <label for="prefilter-tags">Tag(s)</label>
+            <input type="text" id="prefilter-tags" value="" placeholder="Cat, Dog, etc" />
+          </div>
+          <div class="config-group">
+            <label for="prefilter-sort">Sort By</label>
+            <select id="prefilter-sort">
+              <option value="Name: A → Z">Name: A → Z</option>
+              <option value="Name: Z → A">Name: Z → A</option>
+              <option value="File Size: Largest">File Size: Largest</option>
+              <option value="File Size: Smallest">File Size: Smallest</option>
+              <option value="Date Created: Latest">Date Created: Latest</option>
+              <option value="Date Created: Oldest">Date Created: Oldest</option>
+              <option value="Date Modified: Latest" selected>Date Modified: Latest</option>
+              <option value="Date Modified: Oldest">Date Modified: Oldest</option>
+            </select>
+          </div>
+        </details>
+
+        <details id="section-theme" class="config-section collapsible-section" open>
+          <summary><h3>Theme Colors</h3></summary>
+          <div class="config-group">
+            <label>Primary Color</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="primaryColorPicker" value="#00868c" />
+              <input type="text" id="primaryColor" value="#00868c" placeholder="#00868c" />
+            </div>
+          </div>
+          <div class="config-group">
+            <label>Secondary Color</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="secondaryColorPicker" value="#02CBC9" />
+              <input type="text" id="secondaryColor" value="#02CBC9" placeholder="#02CBC9" />
+            </div>
+          </div>
+          <div class="config-group">
+            <label>Background Color</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="backgroundColorPicker" value="#ffffff" />
+              <input type="text" id="backgroundColor" value="#ffffff" placeholder="#ffffff" />
+            </div>
+          </div>
+          <div class="config-group">
+            <label>Text Color</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="textColorPicker" value="#1f2937" />
+              <input type="text" id="textColor" value="#1f2937" placeholder="#1f2937" />
+            </div>
+          </div>
+        </details>
+
+        <details id="section-branding" class="config-section collapsible-section">
+          <summary><h3>Branding</h3></summary>
+          <div class="config-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" value="Asset Library" placeholder="Asset Library" />
+          </div>
+          <div class="config-group">
+            <label for="logoUrl">Logo URL (optional)</label>
+            <input type="text" id="logoUrl" value="" placeholder="https://example.com/logo.png" />
+          </div>
+        </details>
+
+        <details id="section-typography" class="config-section collapsible-section">
+          <summary><h3>Typography</h3></summary>
+          <div class="config-group">
+            <label for="fontFamily">Font Family</label>
+            <select id="fontFamily">
+              <option value="Inter, system-ui, sans-serif">Inter (Default)</option>
+              <option value="system-ui, -apple-system, sans-serif">System UI</option>
+              <option value="Georgia, serif">Georgia (Serif)</option>
+              <option value="'Courier New', monospace">Courier (Mono)</option>
+            </select>
+          </div>
+        </details>
+
+        <details id="section-features" class="config-section collapsible-section">
+          <summary><h3>Features</h3></summary>
+          <div class="checkbox-group">
+            <input type="checkbox" id="multiSelect" checked />
+            <label for="multiSelect">Multi-select Mode</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showHelpscout" />
+            <label for="showHelpscout">Show Help Widget</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showClose" checked />
+            <label for="showClose">Show Close Button</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showAITools" checked />
+            <label for="showAITools">Show AI Tools</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showEditButton" checked />
+            <label for="showEditButton">Show Edit Button</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showStockImages" />
+            <label for="showStockImages">Show Stock Images Tab</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showStockIcons" />
+            <label for="showStockIcons">Show Stock Icons Tab</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="showMigrationBanner" />
+            <label for="showMigrationBanner">Show Migration Banner (auth needed)</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="saveAsNewCopy" />
+            <label for="saveAsNewCopy">Save As New Copy (mini editor)</label>
+          </div>
+        </details>
+
+        <details id="section-sidebar-options" class="config-section collapsible-section">
+          <summary><h3>Sidebar Options</h3></summary>
+          <div class="sidebar-config">
+            <div class="config-group">
+              <label for="sidebarSide">Side</label>
+              <select id="sidebarSide">
+                <option value="right">Right</option>
+                <option value="left">Left</option>
+              </select>
+            </div>
+            <div class="config-group">
+              <label for="sidebarWidth">Width (px)</label>
+              <input type="text" id="sidebarWidth" value="400" placeholder="400" />
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="sidebarOverlay" checked />
+              <label for="sidebarOverlay">Show overlay backdrop</label>
+            </div>
+          </div>
+        </details>
+
+        <div class="config-section">
+          <button class="btn btn-secondary btn-full" id="resetBtn">Reset to Defaults</button>
+        </div>
+      </aside>
+
+      <!-- Preview Area -->
+      <section class="preview-area">
+        <!-- Drop Zone -->
+        <div class="code-section">
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-placeholder" id="dropZonePlaceholder">
+              <h3>📦 Drop Zone</h3>
+              <p>Drag an asset from the library below and drop it here</p>
+            </div>
+            <div class="drop-zone-content" id="dropZoneContent" style="display: none">
+              <img id="droppedAssetImage" class="dropped-asset" style="display: none" />
+              <video id="droppedAssetVideo" class="dropped-asset" controls style="display: none"></video>
+              <div class="dropped-asset-info" id="droppedAssetInfo"></div>
+              <button class="clear-drop-btn" id="clearDropBtn">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-header">
+          <h2>Live Preview (Inline Mode)</h2>
+        </div>
+
+        <!-- Preview Container with live web component -->
+        <div class="preview-container" id="previewContainer">
+          <piktochart-asset-library
+            id="livePreview"
+            mode="inline"
+            colors-primary="#00868c"
+            colors-secondary="#02CBC9"
+            colors-background="#ffffff"
+            colors-text="#1f2937"
+            branding-product-name="Asset Library"
+            fonts-family="Inter, system-ui, sans-serif"
+            show-helpscout="false"
+            show-close="true"
+            show-ai-tools="true"
+            multi-select="false"
+          ></piktochart-asset-library>
+        </div>
+
+        <!-- Generated Code -->
+        <div class="code-section">
+          <div class="code-header">
+            <span>Generated Code</span>
+            <div style="display: flex; gap: 0.5rem; align-items: center">
+              <div class="code-tabs">
+                <button class="code-tab active" data-tab="js">JavaScript</button>
+                <button class="code-tab" data-tab="html">HTML</button>
+              </div>
+              <button class="copy-btn" id="copyCodeBtn">Copy</button>
+            </div>
+          </div>
+          <div class="code-content">
+            <pre id="codeOutput"></pre>
+          </div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="event-log">
+          <div class="event-log-header">
+            <span>Event Log</span>
+            <button class="copy-btn" id="clearLogBtn">Clear</button>
+          </div>
+          <div class="event-log-content" id="eventLog">
+            <div class="event-item">
+              <span class="comment">// Events will appear here when you interact with the library</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <!-- Hidden file input for programmatic upload -->
+    <input type="file" id="programmaticUploadInput" accept="image/*,video/*,application/pdf" style="display: none" />
+
+    <script type="module">
+      // ============================================
+      // STATE
+      // ============================================
+      let currentTab = 'js';
+
+      // ============================================
+      // DOM ELEMENTS
+      // ============================================
+      const elements = {
+        livePreview: document.getElementById('livePreview'),
+        prefilterTypeImage: document.getElementById('prefilter-type-image'),
+        prefilterTypeVideo: document.getElementById('prefilter-type-video'),
+        prefilterTypeIcon: document.getElementById('prefilter-type-icon'),
+        prefilterTypeDesign: document.getElementById('prefilter-type-design'),
+        prefilterTypeDocument: document.getElementById('prefilter-type-document'),
+        prefilterTags: document.getElementById('prefilter-tags'),
+        prefilterSort: document.getElementById('prefilter-sort'),
+        primaryColor: document.getElementById('primaryColor'),
+        primaryColorPicker: document.getElementById('primaryColorPicker'),
+        secondaryColor: document.getElementById('secondaryColor'),
+        secondaryColorPicker: document.getElementById('secondaryColorPicker'),
+        backgroundColor: document.getElementById('backgroundColor'),
+        backgroundColorPicker: document.getElementById('backgroundColorPicker'),
+        textColor: document.getElementById('textColor'),
+        textColorPicker: document.getElementById('textColorPicker'),
+        productName: document.getElementById('productName'),
+        logoUrl: document.getElementById('logoUrl'),
+        fontFamily: document.getElementById('fontFamily'),
+        multiSelect: document.getElementById('multiSelect'),
+        showHelpscout: document.getElementById('showHelpscout'),
+        showClose: document.getElementById('showClose'),
+        showAITools: document.getElementById('showAITools'),
+        showEditButton: document.getElementById('showEditButton'),
+        showStockImages: document.getElementById('showStockImages'),
+        showStockIcons: document.getElementById('showStockIcons'),
+        showMigrationBanner: document.getElementById('showMigrationBanner'),
+        saveAsNewCopy: document.getElementById('saveAsNewCopy'),
+        allowUseImage: document.getElementById('allowUseImage'),
+        allowUseVideo: document.getElementById('allowUseVideo'),
+        allowUseIcon: document.getElementById('allowUseIcon'),
+        allowUseDesign: document.getElementById('allowUseDesign'),
+        allowUseDocument: document.getElementById('allowUseDocument'),
+        apiBaseUrl: document.getElementById('apiBaseUrl'),
+        apiAccountId: document.getElementById('apiAccountId'),
+        apiToken: document.getElementById('apiToken'),
+        apiTokenError: document.getElementById('apiTokenError'),
+        thriveToken: document.getElementById('thriveToken'),
+        sidebarSide: document.getElementById('sidebarSide'),
+        sidebarWidth: document.getElementById('sidebarWidth'),
+        sidebarOverlay: document.getElementById('sidebarOverlay'),
+        openModalBtn: document.getElementById('openModalBtn'),
+        openSidebarBtn: document.getElementById('openSidebarBtn'),
+        resetBtn: document.getElementById('resetBtn'),
+        codeOutput: document.getElementById('codeOutput'),
+        copyCodeBtn: document.getElementById('copyCodeBtn'),
+        clearLogBtn: document.getElementById('clearLogBtn'),
+        eventLog: document.getElementById('eventLog'),
+        toast: document.getElementById('toast'),
+        toggleThemeBtn: document.getElementById('toggleThemeBtn'),
+        sunIcon: document.getElementById('sunIcon'),
+        moonIcon: document.getElementById('moonIcon'),
+        dropZone: document.getElementById('dropZone'),
+        dropZonePlaceholder: document.getElementById('dropZonePlaceholder'),
+        dropZoneContent: document.getElementById('dropZoneContent'),
+        droppedAssetImage: document.getElementById('droppedAssetImage'),
+        droppedAssetVideo: document.getElementById('droppedAssetVideo'),
+        droppedAssetInfo: document.getElementById('droppedAssetInfo'),
+        clearDropBtn: document.getElementById('clearDropBtn'),
+        programmaticUploadInput: document.getElementById('programmaticUploadInput'),
+      };
+
+      // ============================================
+      // CONFIGURATION
+      // ============================================
+
+      /**
+       * Validates that the parsed token object has the expected ApiToken shape.
+       * Expected shape: { access_token, token_type, expires_in, refresh_token, created_at, client_id? }
+       * Include client_id from the token endpoint so refresh uses the same OAuth client.
+       */
+      function isValidApiToken(token) {
+        return (
+          token && typeof token === 'object' && typeof token.access_token === 'string' && token.access_token.length > 0
+        );
+      }
+
+      /**
+       * Shows or hides an error message for the API token field.
+       */
+      function setApiTokenError(message) {
+        if (elements.apiTokenError) {
+          elements.apiTokenError.textContent = message;
+          elements.apiTokenError.style.display = message ? 'block' : 'none';
+        }
+        if (message) {
+          console.warn('API Token validation:', message);
+        }
+      }
+
+      function getConfig() {
+        const config = {
+          theme: {
+            colors: {
+              primary: elements.primaryColor.value,
+              secondary: elements.secondaryColor.value,
+              background: elements.backgroundColor.value,
+              text: elements.textColor.value,
+            },
+            fonts: {
+              family: elements.fontFamily.value,
+            },
+            branding: {
+              productName: elements.productName.value,
+              ...(elements.logoUrl.value && { logo: elements.logoUrl.value }),
+            },
+          },
+          features: {
+            multiSelect: elements.multiSelect.checked,
+            showHelpscout: elements.showHelpscout.checked,
+            showClose: elements.showClose.checked,
+            showAITools: elements.showAITools.checked,
+            showEditButton: elements.showEditButton.checked,
+            showStockImages: elements.showStockImages.checked,
+            showStockIcons: elements.showStockIcons.checked,
+            showMigrationBanner: elements.showMigrationBanner.checked,
+            saveAsNewCopy: elements.saveAsNewCopy.checked,
+          },
+        };
+
+        // allowUse is top-level (same level as initialAssetType)
+        const allowUseTypes = [];
+        if (elements.allowUseImage.checked) allowUseTypes.push('image');
+        if (elements.allowUseVideo.checked) allowUseTypes.push('video');
+        if (elements.allowUseIcon.checked) allowUseTypes.push('icon');
+        if (elements.allowUseDesign.checked) allowUseTypes.push('design');
+        if (elements.allowUseDocument.checked) allowUseTypes.push('document');
+        config.allowUse = allowUseTypes;
+
+        // Add API config if values are provided
+        if (elements.apiBaseUrl.value) {
+          config.apiBaseUrl = elements.apiBaseUrl.value;
+        }
+        if (elements.apiAccountId.value) {
+          config.apiAccountId = elements.apiAccountId.value;
+        }
+
+        // Parse and validate API token
+        const tokenValue = elements.apiToken.value.trim();
+        if (tokenValue) {
+          try {
+            const parsed = JSON.parse(tokenValue);
+            if (isValidApiToken(parsed)) {
+              config.apiToken = parsed;
+              setApiTokenError('');
+            } else {
+              setApiTokenError('Invalid token format: must include at least access_token');
+            }
+          } catch (e) {
+            setApiTokenError('Invalid JSON format');
+          }
+        } else {
+          setApiTokenError('');
+        }
+
+        // Thrive AI access token: wrap raw JWT into an api token so the library authenticates with it.
+        // Use a long expires_in so the lib never tries to refresh (there is no refresh token here).
+        // Strip surrounding quotes/whitespace in case the token is pasted as a quoted string.
+        const thriveTokenValue = elements.thriveToken.value.trim().replace(/^["'`]+|["'`]+$/g, '');
+        if (thriveTokenValue) {
+          config.apiToken = {
+            access_token: thriveTokenValue,
+            token_type: 'Bearer',
+            expires_in: 86400 * 365,
+            refresh_token: null,
+            created_at: Math.floor(Date.now() / 1000),
+            client_id: null,
+          };
+        }
+
+        // Add pre-filters if values are provided
+        const initialAssetType = [];
+        if (elements.prefilterTypeImage.checked) initialAssetType.push('image');
+        if (elements.prefilterTypeVideo.checked) initialAssetType.push('video');
+        if (elements.prefilterTypeIcon.checked) initialAssetType.push('icon');
+        if (elements.prefilterTypeDesign.checked) initialAssetType.push('design');
+        if (elements.prefilterTypeDocument.checked) initialAssetType.push('document');
+
+        config.initialAssetType = initialAssetType;
+
+        const initialAssetTag = elements.prefilterTags.value
+          .split(',')
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0);
+        config.initialAssetTag = initialAssetTag;
+
+        config.initialSortBy = elements.prefilterSort.value;
+
+        return config;
+      }
+
+      function getSidebarConfig() {
+        return {
+          side: elements.sidebarSide.value,
+          width: parseInt(elements.sidebarWidth.value) || 400,
+          overlay: elements.sidebarOverlay.checked,
+        };
+      }
+
+      // ============================================
+      // UPDATE LIVE PREVIEW
+      // ============================================
+      function updateLivePreview() {
+        const config = getConfig();
+        const preview = elements.livePreview;
+
+        // Update all attributes on the web component
+        preview.setAttribute('initial-asset-type', JSON.stringify(config.initialAssetType));
+        preview.setAttribute('initial-asset-tag', JSON.stringify(config.initialAssetTag));
+        preview.setAttribute('initial-sort-by', config.initialSortBy);
+        preview.setAttribute('allow-use', JSON.stringify(config.allowUse));
+
+        preview.setAttribute('colors-primary', config.theme.colors.primary);
+        preview.setAttribute('colors-secondary', config.theme.colors.secondary);
+        preview.setAttribute('colors-background', config.theme.colors.background);
+        preview.setAttribute('colors-text', config.theme.colors.text);
+        preview.setAttribute('branding-product-name', config.theme.branding.productName);
+
+        if (config.theme.branding.logo) {
+          preview.setAttribute('branding-logo', config.theme.branding.logo);
+        } else {
+          preview.removeAttribute('branding-logo');
+        }
+
+        preview.setAttribute('fonts-family', config.theme.fonts.family);
+        preview.setAttribute('multi-select', String(config.features.multiSelect));
+        preview.setAttribute('show-helpscout', String(config.features.showHelpscout));
+        preview.setAttribute('show-close', String(config.features.showClose));
+        preview.setAttribute('show-ai-tools', String(config.features.showAITools));
+        preview.setAttribute('show-edit-button', String(config.features.showEditButton));
+        preview.setAttribute('show-stock-images', String(config.features.showStockImages));
+        preview.setAttribute('show-stock-icons', String(config.features.showStockIcons));
+        preview.setAttribute('show-migration-banner', String(config.features.showMigrationBanner));
+        preview.setAttribute('save-as-new-copy', String(config.features.saveAsNewCopy));
+        // API config attributes
+        if (config.apiBaseUrl) {
+          preview.setAttribute('api-base-url', config.apiBaseUrl);
+        } else {
+          preview.removeAttribute('api-base-url');
+        }
+
+        if (config.apiAccountId) {
+          preview.setAttribute('api-account-id', config.apiAccountId);
+        } else {
+          preview.removeAttribute('api-account-id');
+        }
+
+        if (config.apiToken) {
+          preview.setAttribute('api-token', JSON.stringify(config.apiToken));
+        } else {
+          preview.removeAttribute('api-token');
+        }
+
+        // Also update code output
+        updateCodeOutput();
+      }
+
+      // ============================================
+      // CODE GENERATION
+      // ============================================
+      function generateJSCode() {
+        const config = getConfig();
+        const sidebar = getSidebarConfig();
+
+        let configStr = JSON.stringify(config, null, 2)
+          .replace(/"([^"]+)":/g, '$1:')
+          .replace(/"/g, "'");
+
+        // Add callbacks
+        const callbacksStr = `  onSelect: (assets) => {
+    console.log('Selected:', assets);
+  },
+  onClose: () => {
+    console.log('Closed');
+  },
+}`;
+        configStr = configStr.replace(/\n\}$/, `,\n${callbacksStr}`);
+
+        const sidebarStr = JSON.stringify(sidebar, null, 2)
+          .replace(/"([^"]+)":/g, '$1:')
+          .replace(/"/g, "'");
+
+        return `<span class="comment">// Create Asset Library instance</span>
+<span class="keyword">const</span> assetLibrary = <span class="property">window</span>.<span class="property">PiktochartAssetLibrary</span>.<span class="function">create</span>(${configStr});
+
+<span class="comment">// Open as modal</span>
+assetLibrary.<span class="function">openModal</span>();
+
+<span class="comment">// Or open as sidebar</span>
+assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
+      }
+
+      function generateHTMLCode() {
+        const config = getConfig();
+
+        const attrs = [
+          'mode="inline"',
+          `colors-primary="${config.theme.colors.primary}"`,
+          `colors-secondary="${config.theme.colors.secondary}"`,
+          `colors-background="${config.theme.colors.background}"`,
+          `colors-text="${config.theme.colors.text}"`,
+          `branding-product-name="${config.theme.branding.productName}"`,
+        ];
+
+        if (config.theme.branding.logo) {
+          attrs.push(`branding-logo="${config.theme.branding.logo}"`);
+        }
+
+        attrs.push(`fonts-family="${config.theme.fonts.family}"`);
+        attrs.push(`multi-select="${config.features.multiSelect}"`);
+        attrs.push(`show-helpscout="${config.features.showHelpscout}"`);
+        attrs.push(`show-close="${config.features.showClose}"`);
+        attrs.push(`show-ai-tools="${config.features.showAITools}"`);
+        attrs.push(`show-edit-button="${config.features.showEditButton}"`);
+        attrs.push(`show-stock-images="${config.features.showStockImages}"`);
+        attrs.push(`show-stock-icons="${config.features.showStockIcons}"`);
+        attrs.push(`show-migration-banner="${config.features.showMigrationBanner}"`);
+        attrs.push(`save-as-new-copy="${config.features.saveAsNewCopy}"`);
+        if (config.allowUse) attrs.push(`allow-use='${JSON.stringify(config.allowUse)}'`);
+        if (config.apiBaseUrl) {
+          attrs.push(`api-base-url="${config.apiBaseUrl}"`);
+        }
+        if (config.apiAccountId) {
+          attrs.push(`api-account-id="${config.apiAccountId}"`);
+        }
+        if (config.apiToken) {
+          attrs.push(`api-token='${JSON.stringify(config.apiToken)}'`);
+        }
+
+        if (config.initialAssetType.length) {
+          attrs.push(`initial-asset-type='${JSON.stringify(config.initialAssetType)}'`);
+        }
+        if (config.initialAssetTag.length) {
+          attrs.push(`initial-asset-tag='${JSON.stringify(config.initialAssetTag)}'`);
+        }
+        if (config.initialSortBy) {
+          attrs.push(`initial-sort-by="${config.initialSortBy}"`);
+        }
+
+        return `<span class="comment">&lt;!-- Load the library --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"./asset-library.umd.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- Use the web component --&gt;</span>
+<span class="tag">&lt;piktochart-asset-library</span>
+   ${attrs
+     .map((a) => {
+       const [name, ...valueParts] = a.split('=');
+       const value = valueParts.join('=');
+       return `<span class="attr">${name}</span>=<span class="string">${value}</span>`;
+     })
+     .join('\n  ')}
+<span class="tag">&gt;&lt;/piktochart-asset-library&gt;</span>`;
+      }
+
+      function updateCodeOutput() {
+        elements.codeOutput.innerHTML = currentTab === 'js' ? generateJSCode() : generateHTMLCode();
+      }
+
+      // ============================================
+      // EVENT LOGGING
+      // ============================================
+      function logEvent(type, data) {
+        const time = new Date().toLocaleTimeString();
+        const dataStr = data ? JSON.stringify(data).slice(0, 80) + (JSON.stringify(data).length > 80 ? '...' : '') : '';
+
+        const item = document.createElement('div');
+        item.className = 'event-item';
+        item.innerHTML = `<span class="time">[${time}]</span> <span class="type">${type}</span>${dataStr ? ` <span class="data">${dataStr}</span>` : ''}`;
+
+        elements.eventLog.appendChild(item);
+        elements.eventLog.scrollTop = elements.eventLog.scrollHeight;
+      }
+
+      // ============================================
+      // MODAL / SIDEBAR OPENING
+      // ============================================
+      let modalInstance = null;
+
+      function hasPrefilters(config) {
+        const hasTypes = config.initialAssetType.length > 0;
+        const hasTags = config.initialAssetTag.length > 0;
+        const hasSort = !!config.initialSortBy && config.initialSortBy !== 'Date Modified: Latest';
+
+        return hasTypes || hasTags || hasSort;
+      }
+
+      function createModalInstance(config = getConfig()) {
+        return window.PiktochartAssetLibrary.create({
+          ...config,
+          onSelect: (assets) => {
+            logEvent('select', { count: assets.length, ids: assets.map((a) => a.id) });
+          },
+          onRename: (asset, newName) => {
+            logEvent('rename', { id: asset.id, oldName: asset.name, newName });
+          },
+          onDelete: (assets) => {
+            logEvent('delete', { count: assets.length, ids: assets.map((a) => a.id) });
+          },
+          onClose: () => {
+            logEvent('close');
+          },
+          onOpen: (details) => {
+            logEvent('open', details);
+          },
+          onUploadStart: (file) => {
+            logEvent('upload-start', { name: file.name, size: file.size, type: file.type });
+          },
+          onUploadSuccess: (asset) => {
+            logEvent('upload-success', { id: asset.id, name: asset.name });
+          },
+          onUploadError: (error) => {
+            logEvent('upload-error', { category: error.category, message: error.message });
+          },
+          onMigrate: () => {
+            logEvent('migrate');
+          },
+        });
+      }
+
+      const sidebarInstance = window.PiktochartAssetLibrary.create({
+        ...getConfig(),
+        onSelect: (assets) => {
+          logEvent('select', { count: assets.length });
+        },
+        onRename: (asset, newName) => {
+          logEvent('rename', { id: asset.id, oldName: asset.name, newName });
+        },
+        onDelete: (assets) => {
+          logEvent('delete', { count: assets.length, ids: assets.map((a) => a.id) });
+        },
+        onClose: () => {
+          logEvent('close');
+        },
+        onOpen: (details) => {
+          logEvent('open', details);
+        },
+        onMigrate: () => {
+          logEvent('migrate');
+        },
+      });
+
+      function openModal() {
+        const config = getConfig();
+
+        if (hasPrefilters(config)) {
+          if (modalInstance) {
+            modalInstance.unmount();
+            modalInstance = null;
+          }
+          modalInstance = createModalInstance(config);
+        } else {
+          // If there is no pre-filters, preserve previous in-modal state (filters/search/sort)
+          if (!modalInstance) {
+            modalInstance = createModalInstance(config);
+          } else {
+            modalInstance.update(config);
+          }
+        }
+        modalInstance.openModal();
+      }
+
+      function openSidebar() {
+        const config = getConfig();
+        const sidebarConfig = getSidebarConfig();
+
+        sidebarInstance.update(config);
+        sidebarInstance.openSidebar(sidebarConfig);
+      }
+
+      // ============================================
+      // UI HELPERS
+      // ============================================
+      function syncColorInputs(picker, text) {
+        picker.addEventListener('input', () => {
+          text.value = picker.value;
+          updateLivePreview();
+        });
+        text.addEventListener('input', () => {
+          if (/^#[0-9A-Fa-f]{6}$/.test(text.value)) {
+            picker.value = text.value;
+          }
+          updateLivePreview();
+        });
+      }
+
+      function resetToDefaults() {
+        elements.prefilterTypeIcon.checked = false;
+        elements.prefilterTypeImage.checked = false;
+        elements.prefilterTypeVideo.checked = false;
+        elements.prefilterTypeDesign.checked = false;
+        elements.prefilterTypeDocument.checked = false;
+        elements.prefilterTags.value = '';
+        elements.prefilterSort.value = 'Date Modified: Latest';
+        elements.primaryColor.value = '#00868c';
+        elements.primaryColorPicker.value = '#00868c';
+        elements.secondaryColor.value = '#02CBC9';
+        elements.secondaryColorPicker.value = '#02CBC9';
+        elements.backgroundColor.value = '#ffffff';
+        elements.backgroundColorPicker.value = '#ffffff';
+        elements.textColor.value = '#1f2937';
+        elements.textColorPicker.value = '#1f2937';
+        elements.productName.value = 'Asset Library';
+        elements.logoUrl.value = '';
+        elements.fontFamily.value = 'Inter, system-ui, sans-serif';
+        elements.multiSelect.checked = true;
+        elements.showHelpscout.checked = false;
+        elements.showClose.checked = true;
+        elements.showAITools.checked = true;
+        elements.showEditButton.checked = true;
+        elements.showStockImages.checked = false;
+        elements.showMigrationBanner.checked = false;
+        elements.saveAsNewCopy.checked = false;
+        elements.allowUseImage.checked = false;
+        elements.allowUseVideo.checked = false;
+        elements.allowUseIcon.checked = false;
+        elements.allowUseDesign.checked = false;
+        elements.allowUseDocument.checked = false;
+        elements.apiBaseUrl.value = 'http://localhost:8080/';
+        elements.apiAccountId.value = '';
+        elements.apiToken.value = '';
+        elements.thriveToken.value = '';
+        elements.sidebarSide.value = 'right';
+        elements.sidebarWidth.value = '400';
+        elements.sidebarOverlay.checked = true;
+
+        updateLivePreview();
+      }
+
+      // ============================================
+      // EVENT LISTENERS
+      // ============================================
+      // Color syncing
+      syncColorInputs(elements.primaryColorPicker, elements.primaryColor);
+      syncColorInputs(elements.secondaryColorPicker, elements.secondaryColor);
+      syncColorInputs(elements.backgroundColorPicker, elements.backgroundColor);
+      syncColorInputs(elements.textColorPicker, elements.textColor);
+
+      // All config changes update preview
+      [
+        elements.productName,
+        elements.logoUrl,
+        elements.fontFamily,
+        elements.multiSelect,
+        elements.showHelpscout,
+        elements.showClose,
+        elements.showAITools,
+        elements.showEditButton,
+        elements.showStockImages,
+        elements.showStockIcons,
+        elements.showMigrationBanner,
+        elements.saveAsNewCopy,
+        elements.allowUseImage,
+        elements.allowUseVideo,
+        elements.allowUseIcon,
+        elements.allowUseDesign,
+        elements.allowUseDocument,
+        elements.apiBaseUrl,
+        elements.apiAccountId,
+        elements.apiToken,
+        elements.thriveToken,
+        elements.prefilterTypeIcon,
+        elements.prefilterTypeImage,
+        elements.prefilterTypeVideo,
+        elements.prefilterTypeDesign,
+        elements.prefilterTypeDocument,
+        elements.prefilterTags,
+        elements.prefilterSort,
+      ].forEach((el) => {
+        el.addEventListener('change', updateLivePreview);
+        el.addEventListener('input', updateLivePreview);
+      });
+
+      // Sidebar config updates code output
+      [elements.sidebarSide, elements.sidebarWidth, elements.sidebarOverlay].forEach((el) => {
+        el.addEventListener('change', updateCodeOutput);
+        el.addEventListener('input', updateCodeOutput);
+      });
+
+      // Code tabs
+      document.querySelectorAll('.code-tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.code-tab').forEach((t) => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentTab = tab.dataset.tab;
+          updateCodeOutput();
+        });
+      });
+
+      // Buttons
+      elements.openModalBtn.addEventListener('click', openModal);
+      elements.openSidebarBtn.addEventListener('click', openSidebar);
+      elements.resetBtn.addEventListener('click', resetToDefaults);
+
+      document.getElementById('modalTestUploadBtn')?.addEventListener('click', () => {
+        elements.programmaticUploadInput.click();
+      });
+
+      elements.programmaticUploadInput.addEventListener('change', () => {
+        const file = elements.programmaticUploadInput.files?.[0];
+        if (!file) return;
+        if (!modalInstance) {
+          modalInstance = createModalInstance();
+        }
+
+        const uploadBtn = document.getElementById('modalTestUploadBtn');
+        uploadBtn.disabled = true;
+
+        // Sync config so this upload uses current auth/baseURL from the form
+        modalInstance.update(getConfig());
+
+        modalInstance
+          .upload(file)
+          .then((res) => {
+            if (res?.success) {
+              modalInstance.openModal();
+            } else {
+              logEvent('upload-error', {
+                message: 'Programmatic upload failed',
+                error: res?.error,
+              });
+            }
+          })
+          .catch((err) => {
+            logEvent('upload-error', {
+              message: 'Programmatic upload failed',
+              error: err,
+            });
+          })
+          .finally(() => {
+            uploadBtn.disabled = false;
+            elements.programmaticUploadInput.value = '';
+          });
+      });
+
+      elements.copyCodeBtn.addEventListener('click', () => {
+        const code = currentTab === 'js' ? generateJSCode() : generateHTMLCode();
+        const plainCode = code.replace(/<[^>]+>/g, '');
+        const decoded = new DOMParser().parseFromString(plainCode, 'text/html').body.textContent || plainCode;
+        navigator.clipboard.writeText(decoded).then(() => {
+          elements.copyCodeBtn.textContent = 'Copied!';
+          elements.copyCodeBtn.classList.add('copied');
+          setTimeout(() => {
+            elements.copyCodeBtn.textContent = 'Copy';
+            elements.copyCodeBtn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      elements.clearLogBtn.addEventListener('click', () => {
+        elements.eventLog.innerHTML = `<div class="event-item"><span class="comment">// Events cleared</span></div>`;
+      });
+
+      // Theme toggle
+      function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        elements.sunIcon.style.display = isDark ? 'none' : 'block';
+        elements.moonIcon.style.display = isDark ? 'block' : 'none';
+      }
+
+      elements.toggleThemeBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        updateThemeIcons();
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      });
+
+      // Initialize theme from localStorage
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+        updateThemeIcons();
+      }
+
+      // Listen for events from inline preview
+      elements.livePreview.addEventListener('asset-library-select', (e) => {
+        const assets = e.detail;
+
+        logEvent('asset-library-select (inline)', { count: e.detail.length, ids: e.detail.map((a) => a.id) });
+        if (assets.length > 0) {
+          displayDroppedAsset(assets[0], true);
+        }
+      });
+
+      elements.livePreview.addEventListener('asset-library-rename', (e) => {
+        logEvent('asset-library-rename (inline)', {
+          id: e.detail.asset.id,
+          oldName: e.detail.asset.name,
+          newName: e.detail.newName,
+        });
+      });
+
+      elements.livePreview.addEventListener('asset-library-delete', (e) => {
+        logEvent('asset-library-delete (inline)', { count: e.detail.length, ids: e.detail.map((a) => a.id) });
+      });
+
+      elements.livePreview.addEventListener('asset-library-close', (e) => {
+        logEvent('asset-library-close (inline)', {});
+      });
+
+      elements.livePreview.addEventListener('asset-library-token-refresh', (e) => {
+        logEvent('asset-library-token-refresh (inline)', { token: e.detail });
+      });
+
+      elements.livePreview.addEventListener('asset-library-auth-error', (e) => {
+        logEvent('asset-library-auth-error (inline)', { message: e.detail.message });
+      });
+
+      elements.livePreview.addEventListener('asset-library-migrate', (e) => {
+        logEvent('asset-library-migrate (inline)');
+      });
+
+      // Drop Zone Handling
+      function clearDropZone() {
+        elements.dropZonePlaceholder.style.display = 'block';
+        elements.dropZoneContent.style.display = 'none';
+        elements.droppedAssetImage.style.display = 'none';
+        elements.droppedAssetVideo.style.display = 'none';
+        elements.droppedAssetImage.src = '';
+        elements.droppedAssetVideo.src = '';
+        elements.droppedAssetInfo.textContent = '';
+        elements.dropZone.classList.remove('drag-over');
+      }
+
+      function displayDroppedAsset(asset, skipLog = false) {
+        elements.dropZonePlaceholder.style.display = 'none';
+        elements.dropZoneContent.style.display = 'flex';
+
+        const isImageType = asset.type === 'image' || asset.type === 'icon' || asset.type === 'design';
+        if (isImageType) {
+          elements.droppedAssetImage.src = asset.url;
+          elements.droppedAssetImage.style.display = 'block';
+          elements.droppedAssetVideo.style.display = 'none';
+        } else if (asset.type === 'video') {
+          elements.droppedAssetVideo.src = asset.url;
+          elements.droppedAssetVideo.style.display = 'block';
+          elements.droppedAssetImage.style.display = 'none';
+        }
+
+        const info = [];
+        if (asset.name) info.push(`Name: ${asset.name}`);
+        if (asset.width && asset.height) info.push(`Size: ${asset.width} × ${asset.height}`);
+        if (asset.size) info.push(`File size: ${(asset.size / 1024).toFixed(2)} KB`);
+        if (asset.duration) info.push(`Duration: ${asset.duration}s`);
+
+        elements.droppedAssetInfo.innerHTML =
+          info.length > 0
+            ? `<strong>${isImageType ? '🖼️' : '🎥'} ${isImageType ? 'Image' : 'Video'}</strong><br>${info.join(' • ')}`
+            : `<strong>${isImageType ? '🖼️' : '🎥'} ${isImageType ? 'Image' : 'Video'}</strong>`;
+
+        if (!skipLog) {
+          logEvent('drop', {
+            type: asset.type,
+            name: asset.name || 'Unknown',
+            url: asset.url,
+          });
+        }
+      }
+
+      // Prevent default drag behaviors
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
+        elements.dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      });
+
+      // Handle drag over
+      elements.dropZone.addEventListener('dragover', (e) => {
+        // Check if this is an asset from the library (has application/json data)
+        if (e.dataTransfer && e.dataTransfer.types.includes('application/json')) {
+          elements.dropZone.classList.add('drag-over');
+        }
+      });
+
+      // Handle drop
+      elements.dropZone.addEventListener('drop', (e) => {
+        elements.dropZone.classList.remove('drag-over');
+
+        try {
+          // Try to get asset data from application/json
+          const assetData = e.dataTransfer.getData('application/json');
+          if (assetData) {
+            const asset = JSON.parse(assetData);
+            displayDroppedAsset(asset);
+            return;
+          }
+
+          // Fallback: try text/plain (URL)
+          const url = e.dataTransfer.getData('text/plain');
+          if (url) {
+            // Create a basic asset object from URL
+            const asset = {
+              url: url,
+              type: url.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image',
+              name: url.split('/').pop() || 'Dropped asset',
+            };
+            displayDroppedAsset(asset);
+            return;
+          }
+        } catch (error) {
+          console.error('Error handling drop:', error);
+          logEvent('drop error', { error: error.message });
+        }
+      });
+
+      // Clear button
+      elements.clearDropBtn.addEventListener('click', clearDropZone);
+
+      // ============================================
+      // COLLAPSIBLE SECTION PERSISTENCE
+      // ============================================
+      const COLLAPSIBLE_STATE_KEY = 'collapsible-sections';
+
+      function saveCollapsibleState() {
+        try {
+          const sections = document.querySelectorAll('.collapsible-section');
+          const state = {};
+          sections.forEach((section) => {
+            if (section.id) {
+              state[section.id] = section.open;
+            }
+          });
+          localStorage.setItem(COLLAPSIBLE_STATE_KEY, JSON.stringify(state));
+        } catch (e) {
+          console.warn('Unable to persist collapsible state:', e);
+        }
+      }
+
+      function restoreCollapsibleState() {
+        try {
+          const savedState = localStorage.getItem(COLLAPSIBLE_STATE_KEY);
+          if (savedState) {
+            const state = JSON.parse(savedState);
+            Object.keys(state).forEach((id) => {
+              const section = document.getElementById(id);
+              if (section) {
+                section.open = state[id] === true;
+              }
+            });
+          }
+        } catch (e) {
+          console.warn('Unable to restore collapsible state:', e);
+        }
+      }
+
+      // Listen for toggle events on all collapsible sections
+      document.querySelectorAll('.collapsible-section').forEach((section) => {
+        section.addEventListener('toggle', saveCollapsibleState);
+      });
+
+      // ============================================
+      // INITIALIZATION
+      // ============================================
+      restoreCollapsibleState();
+      updateLivePreview();
+      updateCodeOutput();
+    </script>
+  </body>
+</html>
