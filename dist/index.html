@@ -739,30 +739,55 @@
           </div>
         </details>
 
-        <details id="section-prefilter" class="config-section collapsible-section">
-          <summary><h3>Pre-filter Settings</h3></summary>
+        <details id="section-live-filters" class="config-section collapsible-section">
+          <summary>
+            <h3>
+              Live Filters
+              <small style="font-weight: normal; font-size: 0.75rem; opacity: 0.7"
+                >(via .update() — applied immediately, JS API only)</small
+              >
+            </h3>
+          </summary>
           <div class="config-group">
             <label>Types</label>
             <div class="checkbox-group">
-              <input type="checkbox" id="prefilter-type-design" />
-              <label for="prefilter-type-design">Design</label>
+              <input type="checkbox" id="live-filter-type-design" />
+              <label for="live-filter-type-design">Design</label>
             </div>
             <div class="checkbox-group">
-              <input type="checkbox" id="prefilter-type-image" />
-              <label for="prefilter-type-image">Image</label>
+              <input type="checkbox" id="live-filter-type-image" />
+              <label for="live-filter-type-image">Image</label>
             </div>
             <div class="checkbox-group">
-              <input type="checkbox" id="prefilter-type-video" />
-              <label for="prefilter-type-video">Video</label>
+              <input type="checkbox" id="live-filter-type-video" />
+              <label for="live-filter-type-video">Video</label>
             </div>
             <div class="checkbox-group">
-              <input type="checkbox" id="prefilter-type-icon" />
-              <label for="prefilter-type-icon">Icon & Graphics</label>
+              <input type="checkbox" id="live-filter-type-icon" />
+              <label for="live-filter-type-icon">Icon & Graphics</label>
             </div>
             <div class="checkbox-group">
-              <input type="checkbox" id="prefilter-type-document" />
-              <label for="prefilter-type-document">Document</label>
+              <input type="checkbox" id="live-filter-type-document" />
+              <label for="live-filter-type-document">Document</label>
             </div>
+          </div>
+          <div class="config-group">
+            <label for="live-filter-tags">Tag(s)</label>
+            <input type="text" id="live-filter-tags" value="" placeholder="Cat, Dog, etc" />
+          </div>
+          <div class="config-group">
+            <label for="live-filter-sort">Sort By</label>
+            <select id="live-filter-sort">
+              <option value="">— no override —</option>
+              <option value="Name: A → Z">Name: A → Z</option>
+              <option value="Name: Z → A">Name: Z → A</option>
+              <option value="File Size: Largest">File Size: Largest</option>
+              <option value="File Size: Smallest">File Size: Smallest</option>
+              <option value="Date Created: Latest">Date Created: Latest</option>
+              <option value="Date Created: Oldest">Date Created: Oldest</option>
+              <option value="Date Modified: Latest">Date Modified: Latest</option>
+              <option value="Date Modified: Oldest">Date Modified: Oldest</option>
+            </select>
           </div>
           <div class="config-group">
             <label>Allow Use Types <small>(none = all allowed)</small></label>
@@ -785,6 +810,40 @@
             <div class="checkbox-group">
               <input type="checkbox" id="allowUseDocument" />
               <label for="allowUseDocument">Document</label>
+            </div>
+          </div>
+        </details>
+
+        <details id="section-prefilter" class="config-section collapsible-section">
+          <summary>
+            <h3>
+              Pre-filter Settings
+              <small style="font-weight: normal; font-size: 0.75rem; opacity: 0.7"
+                >(one-time default on first open)</small
+              >
+            </h3>
+          </summary>
+          <div class="config-group">
+            <label>Types</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-design" />
+              <label for="prefilter-type-design">Design</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-image" />
+              <label for="prefilter-type-image">Image</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-video" />
+              <label for="prefilter-type-video">Video</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-icon" />
+              <label for="prefilter-type-icon">Icon & Graphics</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prefilter-type-document" />
+              <label for="prefilter-type-document">Document</label>
             </div>
           </div>
           <div class="config-group">
@@ -1019,6 +1078,13 @@
       // ============================================
       const elements = {
         livePreview: document.getElementById('livePreview'),
+        liveFilterTypeImage: document.getElementById('live-filter-type-image'),
+        liveFilterTypeVideo: document.getElementById('live-filter-type-video'),
+        liveFilterTypeIcon: document.getElementById('live-filter-type-icon'),
+        liveFilterTypeDesign: document.getElementById('live-filter-type-design'),
+        liveFilterTypeDocument: document.getElementById('live-filter-type-document'),
+        liveFilterTags: document.getElementById('live-filter-tags'),
+        liveFilterSort: document.getElementById('live-filter-sort'),
         prefilterTypeImage: document.getElementById('prefilter-type-image'),
         prefilterTypeVideo: document.getElementById('prefilter-type-video'),
         prefilterTypeIcon: document.getElementById('prefilter-type-icon'),
@@ -1188,6 +1254,25 @@
           };
         }
 
+        // Live filters (applied immediately via .update(), null = cleared)
+        const liveFilterAssetType = [];
+        if (elements.liveFilterTypeImage.checked) liveFilterAssetType.push('image');
+        if (elements.liveFilterTypeVideo.checked) liveFilterAssetType.push('video');
+        if (elements.liveFilterTypeIcon.checked) liveFilterAssetType.push('icon');
+        if (elements.liveFilterTypeDesign.checked) liveFilterAssetType.push('design');
+        if (elements.liveFilterTypeDocument.checked) liveFilterAssetType.push('document');
+
+        const liveFilterAssetTag = elements.liveFilterTags.value
+          .split(',')
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0);
+
+        const liveFilterSort = elements.liveFilterSort.value || undefined;
+        const hasLiveFilters = liveFilterAssetType.length > 0 || liveFilterAssetTag.length > 0 || liveFilterSort;
+        config.filters = hasLiveFilters
+          ? { assetType: liveFilterAssetType, assetTag: liveFilterAssetTag, sortBy: liveFilterSort }
+          : null;
+
         // Add pre-filters if values are provided
         const initialAssetType = [];
         if (elements.prefilterTypeImage.checked) initialAssetType.push('image');
@@ -1229,6 +1314,12 @@
         preview.setAttribute('initial-asset-tag', JSON.stringify(config.initialAssetTag));
         preview.setAttribute('initial-sort-by', config.initialSortBy);
         preview.setAttribute('allow-use', JSON.stringify(config.allowUse));
+
+        if (config.filters) {
+          preview.setAttribute('filters', JSON.stringify(config.filters));
+        } else {
+          preview.removeAttribute('filters');
+        }
 
         preview.setAttribute('colors-primary', config.theme.colors.primary);
         preview.setAttribute('colors-secondary', config.theme.colors.secondary);
@@ -1504,6 +1595,13 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
       }
 
       function resetToDefaults() {
+        elements.liveFilterTypeIcon.checked = false;
+        elements.liveFilterTypeImage.checked = false;
+        elements.liveFilterTypeVideo.checked = false;
+        elements.liveFilterTypeDesign.checked = false;
+        elements.liveFilterTypeDocument.checked = false;
+        elements.liveFilterTags.value = '';
+        elements.liveFilterSort.value = '';
         elements.prefilterTypeIcon.checked = false;
         elements.prefilterTypeImage.checked = false;
         elements.prefilterTypeVideo.checked = false;
@@ -1574,6 +1672,13 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         elements.allowUseIcon,
         elements.allowUseDesign,
         elements.allowUseDocument,
+        elements.liveFilterTypeImage,
+        elements.liveFilterTypeVideo,
+        elements.liveFilterTypeIcon,
+        elements.liveFilterTypeDesign,
+        elements.liveFilterTypeDocument,
+        elements.liveFilterTags,
+        elements.liveFilterSort,
         elements.apiBaseUrl,
         elements.apiAccountId,
         elements.apiToken,
