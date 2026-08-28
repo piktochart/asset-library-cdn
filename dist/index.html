@@ -960,6 +960,10 @@
             <input type="checkbox" id="saveAsNewCopy" />
             <label for="saveAsNewCopy">Save As New Copy (mini editor)</label>
           </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="enableFlipbook" />
+            <label for="enableFlipbook">Use Design as Flipbook Embed</label>
+          </div>
         </details>
 
         <details id="section-sidebar-options" class="config-section collapsible-section">
@@ -1112,6 +1116,7 @@
         showStockIcons: document.getElementById('showStockIcons'),
         showMigrationBanner: document.getElementById('showMigrationBanner'),
         saveAsNewCopy: document.getElementById('saveAsNewCopy'),
+        enableFlipbook: document.getElementById('enableFlipbook'),
         allowUseImage: document.getElementById('allowUseImage'),
         allowUseVideo: document.getElementById('allowUseVideo'),
         allowUseIcon: document.getElementById('allowUseIcon'),
@@ -1201,6 +1206,7 @@
             showStockIcons: elements.showStockIcons.checked,
             showMigrationBanner: elements.showMigrationBanner.checked,
             saveAsNewCopy: elements.saveAsNewCopy.checked,
+            enableFlipbook: elements.enableFlipbook.checked,
           },
         };
 
@@ -1343,6 +1349,7 @@
         preview.setAttribute('show-stock-icons', String(config.features.showStockIcons));
         preview.setAttribute('show-migration-banner', String(config.features.showMigrationBanner));
         preview.setAttribute('save-as-new-copy', String(config.features.saveAsNewCopy));
+        preview.setAttribute('enable-flipbook', String(config.features.enableFlipbook));
         // API config attributes
         if (config.apiBaseUrl) {
           preview.setAttribute('api-base-url', config.apiBaseUrl);
@@ -1427,6 +1434,7 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         attrs.push(`show-stock-icons="${config.features.showStockIcons}"`);
         attrs.push(`show-migration-banner="${config.features.showMigrationBanner}"`);
         attrs.push(`save-as-new-copy="${config.features.saveAsNewCopy}"`);
+        attrs.push(`enable-flipbook="${config.features.enableFlipbook}"`);
         if (config.allowUse) attrs.push(`allow-use='${JSON.stringify(config.allowUse)}'`);
         if (config.apiBaseUrl) {
           attrs.push(`api-base-url="${config.apiBaseUrl}"`);
@@ -1667,6 +1675,7 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         elements.showStockIcons,
         elements.showMigrationBanner,
         elements.saveAsNewCopy,
+        elements.enableFlipbook,
         elements.allowUseImage,
         elements.allowUseVideo,
         elements.allowUseIcon,
