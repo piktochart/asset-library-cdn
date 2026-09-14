@@ -1490,6 +1490,12 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         elements.eventLog.scrollTop = elements.eventLog.scrollHeight;
       }
 
+      // Both representations handed to the host, full length: the event log truncates at 80 chars,
+      // which is shorter than a PDF URL.
+      function logSelectedRepresentations(assets) {
+        console.table(assets.map(({ id, name, url, pdfUrl }) => ({ id, name, url, pdfUrl })));
+      }
+
       // ============================================
       // MODAL / SIDEBAR OPENING
       // ============================================
@@ -1508,6 +1514,7 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
           ...config,
           onSelect: (assets) => {
             logEvent('select', { count: assets.length, ids: assets.map((a) => a.id) });
+            logSelectedRepresentations(assets);
           },
           onRename: (asset, newName) => {
             logEvent('rename', { id: asset.id, oldName: asset.name, newName });
@@ -1540,6 +1547,7 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         ...getConfig(),
         onSelect: (assets) => {
           logEvent('select', { count: assets.length });
+          logSelectedRepresentations(assets);
         },
         onRename: (asset, newName) => {
           logEvent('rename', { id: asset.id, oldName: asset.name, newName });
