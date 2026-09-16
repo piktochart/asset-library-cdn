@@ -962,7 +962,7 @@
           </div>
           <div class="checkbox-group">
             <input type="checkbox" id="enableFlipbook" />
-            <label for="enableFlipbook">Use Design as Flipbook Embed</label>
+            <label for="enableFlipbook">Use Design or PDF as Flipbook Embed</label>
           </div>
         </details>
 
@@ -1513,7 +1513,11 @@ assetLibrary.<span class="function">openSidebar</span>(${sidebarStr});`;
         return window.PiktochartAssetLibrary.create({
           ...config,
           onSelect: (assets) => {
-            logEvent('select', { count: assets.length, ids: assets.map((a) => a.id) });
+            logEvent('select', {
+              count: assets.length,
+              ids: assets.map((a) => a.id),
+              flipbooks: assets.map((a) => a.flipbook_embed_url).filter(Boolean),
+            });
             logSelectedRepresentations(assets);
           },
           onRename: (asset, newName) => {
